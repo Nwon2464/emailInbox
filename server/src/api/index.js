@@ -4,18 +4,28 @@ const emojis = require("./emojis");
 const Emails = require("../models/emailSchema");
 
 const router = express.Router();
+
+const create = () => {};
+
 const fakerData = () => {
   const from = faker.internet.email();
   const to = faker.internet.email();
-  console.log(faker.date.past());
-  console.log(faker.date.past());
+  const subject = faker.lorem.sentence();
+  const date = faker.date.past().toISOString();
+  const randomnumber = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+  let toData = [];
+  for (let i = 0; i < randomnumber; i++) {
+    const to = faker.internet.email();
+    toData.push(to);
+  }
 
-  // new Emails({ from, to, subject: "subject", date: "2020-10-26T14:50:17.227Z" })
-  //   .save()
-  //   .then((saved) => {
-  //     console.log("it is saved");
-  //     console.log(saved);
-  //   });
+  new Emails({ from, to: toData, subject, date })
+    .save()
+    .then((saved) => {
+      console.log("Successfully Saved !");
+      console.log(saved);
+    })
+    .catch((error) => console.log(error));
 };
 router.post("/", (req, res) => {
   // res.json({
@@ -23,6 +33,12 @@ router.post("/", (req, res) => {
   // });
   // console.log(new Date().toISOString());
   try {
+    // const randomnumber = Math.floor(Math.random() * (100 - 1 + 99)) + 99;
+    // let toData = [];
+    // for (let i = 0; i < randomnumber; i++) {
+    //   fakerData();
+    // }
+
     console.log(req.body);
     Emails.find({
       date: {

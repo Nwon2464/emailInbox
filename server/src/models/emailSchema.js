@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 
 const emailSchema = new Schema({
   from: { type: String, required: true },
-  to: { type: String, required: true },
-
+  to: [String],
   subject: { type: String, required: true },
   date: { type: String, required: true },
 });

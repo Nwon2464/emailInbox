@@ -2,6 +2,8 @@ POST http://localhost:5000/api/v1/
 Content-Type: application/json
 
 {
-    "start":"2020-10-26T13:51:17.227Z",
-    "end":"2020-10-26T17:50:17.227Z"
+    "from":"from",
+    "to":["a","b"],    
+    "subject":"subject",
+    "date":"date"
 }
