@@ -7,3 +7,5 @@ Content-Type: application/json
     "subject":"subject",
     "date":"date"
 }
+###
+GET http://localhost:5000/api/v1/email?start=tom&last=won

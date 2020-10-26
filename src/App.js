@@ -1,60 +1,34 @@
-// import React from "react";
-// import { ReactComponent as SearchIcon } from "./Icon/icon_search.svg";
-// import { ReactComponent as CalenderIcon } from "./Icon/icon_calender.svg";
-// const App = () => {
-//   return (
-//     <div className="app-flex app-flex-column app-flex-nowrap app-bottom-0 app-left-0 app-right-0 app-top-0 app-absolute">
-//       <div className="app-mg-l-45 app-mg-r-45">
-//         <div className="app-flex app-mg-t-2">
-//           <div className="app-flex app-width-30 app-height-4 app-border-2 app-border-radius-10">
-//             <div className="app-flex app-full-height app-full-width">
-//               <div className="app-flex app-align-center app-pd-0-1">
-//                 <CalenderIcon style={{ width: "2.3rem", height: "2.3rem" }} />
-//               </div>
-//               <div
-//                 style={{ fontSize: "1.5rem", width: "20rem" }}
-//                 className="app-flex app-align-center"
-//               >
-//                 <h3>2001/18/12 - 2020/1/1</h3>
-//               </div>
-//             </div>
-
-//             <button
-//               className="app-button-y app-justify-content-center app-flex app-align-center app-width-4
-// "
-//             >
-//               <div className="app-flex app-justify-content-center app-align-center">
-//                 <SearchIcon style={{ width: "2rem", height: "2rem" }} />
-//               </div>
-//             </button>
-//           </div>
-//         </div>
-
-//         <div>bottom</div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default App;
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+
+import { ReactComponent as BallIcon } from "./Icon/ball-triangle.svg";
 import { ReactComponent as SearchIcon } from "./Icon/icon_search.svg";
 import { ReactComponent as CalenderIcon } from "./Icon/icon_calender.svg";
 import { ReactComponent as FaceUpIcon } from "./Icon/icon_arrow01.svg";
-import { ReactComponent as ClipIcon } from "./Icon/icon_clip.svg";
-import { data } from "./data";
+
+import Pagination from "./Pagination";
+import EmailData from "./EmailData";
 import DatePickerBack from "./DatePickerBack";
 import DatePickerFront from "./DatePickerFront";
 import logo from "./Icon/logo.png";
 const App = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dataPerPage] = useState(25);
+  const [loading, setLoading] = useState(false);
+  const [serverData, setServerData] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
   const [startDateState, setStartDateState] = useState(null);
   const [endDateState, setEndDateState] = useState(null);
 
+  const indexOfLastPost = currentPage * dataPerPage;
+  const indexOfFirstPost = indexOfLastPost - dataPerPage;
+  const currentData = serverData.slice(indexOfFirstPost, indexOfLastPost);
+
   const BASE_URL = "http://localhost:5000";
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const handleDateSelect = (a) => {
     setStartDateState(a);
   };
@@ -62,18 +36,37 @@ const App = () => {
   const handleDateSelect2 = (a) => {
     setEndDateState(a);
   };
+  const isoStringReplace = (a, b) => {
+    const aa = a.split("T");
+    const bb = b.split("T");
+    const firstString = aa[1].replace(aa[1], "00:00:00.000Z");
+    const secondString = bb[1].replace(bb[1], "00:00:00.000Z");
+    const start = `${aa[0]}T${firstString}`;
+    const last = `${bb[0]}T${secondString}`;
+    return { start, last };
+  };
   const dateStateOnClick = async () => {
     if (startDateState && endDateState !== null) {
       const start = startDateState.toISOString();
       const last = endDateState.toISOString();
-      console.log(start);
-      const response = await axios.post(`${BASE_URL}/api/v1`, { last, start });
-      console.log(response);
+      const answer = isoStringReplace(start, last);
+      setLoading(true);
+
+      axios
+        .get(
+          `${BASE_URL}/api/v1/email?start=${answer.start}&last=${answer.last}`
+        )
+        .then((res) => {
+          setTimeout(() => {
+            setServerData(res.data);
+            setLoading(false);
+          }, 2000);
+        });
     }
   };
   return (
     <div className="app-flex app-flex-column app-flex-nowrap app-bottom-0 app-left-0 app-right-0 app-top-0 app-absolute">
-      <div className="app-flex app-flex-column app-align-start app-mg-l-45 app-mg-r-45 ">
+      <div className="app-flex app-full-height app-flex-column app-align-start app-mg-l-45 app-mg-r-45 ">
         <div className="app-flex app-full-width app-justify-content-start app-mg-t-2">
           <div className="app-flex app-width-30 app-height-4 app-align-center">
             <div className="app-box-shadow-inset-2 app-border-top app-border-bottom app-border-left app-flex app-full-height app-full-width app-flex-grow-1 app-border-bottom-left-radius-10 app-border-top-left-radius-10">
@@ -119,114 +112,91 @@ const App = () => {
         <div className="app-full-width">
           <div className="app-mg-t-15 app-flex app-justify-content-start">
             <h3 className="app-font-weight-700 app-font-15 app-font-color">
-              Results: 0 mail(s)
+              Results: {serverData.length || 0} mail(s)
             </h3>
           </div>{" "}
         </div>
         <div className="app-custom-border"></div>
-
-        {/* <div className="app-full-height app-full-width app-flex app-justify-content-center app-align-center">
-          <img src={logo} alt="logo" />
-        </div> */}
-        <div className="app-relative">
-          <table className="app-full-width app-border-spacing-0 app-table-layout-fixed">
-            <tbody>
-              <tr
-                style={{
-                  // border: "1px solid red",
-                  paddingTop: "0.3rem",
-                  paddingBottom: "0.3rem",
-                }}
-                className="app-flex app-align-center app-button-background app-height-25"
-              >
-                <td className="app-flex app-flex-basis-10 app-max-width-10 app-pd-l-1 app-flex-grow-0 app-min-width-0">
-                  <div className="app-full-width">
-                    <h3 className="app-font-weight-700 app-font-color">From</h3>
-                  </div>
-                </td>
-                <td
-                  className="app-flex app-flex-basis-20 app-max-width-20 app-pd-l-25 app-flex-grow-0 app-min-width-0
+        {serverData.length === 0 ? (
+          <>
+            {loading ? (
+              <div className="app-full-height app-full-width app-flex app-justify-content-center app-align-center">
+                <div className="app-full-height app-full-width app-flex app-justify-content-center app-align-center">
+                  <BallIcon />
+                </div>
+              </div>
+            ) : (
+              <div className="app-full-height app-full-width app-flex app-justify-content-center app-align-center">
+                <div className="app-full-height app-full-width app-flex app-justify-content-center app-align-center">
+                  <img src={logo} alt="logo" />
+                </div>{" "}
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <div className="app-relative">
+              <table className="app-full-width app-border-spacing-0 app-table-layout-fixed">
+                <tbody>
+                  <tr
+                    style={{
+                      paddingTop: "0.3rem",
+                      paddingBottom: "0.3rem",
+                    }}
+                    className="app-flex app-align-center app-button-background app-height-25"
+                  >
+                    <td className="app-flex app-flex-basis-10 app-max-width-10 app-pd-l-1 app-flex-grow-0 app-min-width-0">
+                      <div className="app-full-width">
+                        <h3 className="app-font-weight-700 app-font-color">
+                          From
+                        </h3>
+                      </div>
+                    </td>
+                    <td
+                      className="app-flex app-flex-basis-150 app-max-width-150 app-pd-l-25 app-flex-grow-0 app-min-width-0
 "
-                >
-                  {" "}
-                  <div className="app-full-width">
-                    <h3 className="app-font-weight-700 app-font-color">To</h3>
-                  </div>
-                </td>
-                <td className="app-flex app-flex-1-1 app-pd-l-1 app-min-width-0">
-                  {" "}
-                  <div className="app-full-width">
-                    <h3 className="app-font-weight-700 app-font-color">
-                      Subject
-                    </h3>
-                  </div>
-                </td>
-                <td className="app-flex app-flex-basis-6 app-max-width-6 app-justify-content-start app-pd-r-1">
-                  <div className="">
-                    <h3 className="app-font-weight-700 app-font-color">Date</h3>
-                  </div>
-                  <div className="app-mg-l-05">
-                    <FaceUpIcon style={{ width: "0.7rem", height: "0.7rem" }} />
-                  </div>
-                </td>
-              </tr>
-              {data.map((e, i) => {
-                return (
-                  <>
-                    <div className="app-custom-border-bottom"></div>
-
-                    <tr
-                      style={{
-                        // border: "1px solid red",
-                        paddingTop: "0.3rem",
-                        paddingBottom: "0.3rem",
-                      }}
-                      // id="app-hover-1034dd"
-                      className="app-flex app-height-25 app-align-center app-cursor-pointer1"
                     >
-                      <td className="app-flex app-flex-basis-10 app-max-width-10 app-pd-l-1 app-flex-grow-0 app-min-width-0">
-                        <div className="app-flex app-white-space-nowrap app-overflow-hidden">
-                          <h3 className="app-ellipsis  app-cursor-pointer">
-                            {e.from}{" "}
-                          </h3>
-                        </div>
-                      </td>
-                      <td className="app-flex app-flex-basis-20 app-max-width-20 app-pd-l-25 app-flex-grow-0 app-min-width-0">
-                        <div className="app-flex app-white-space-nowrap app-overflow-hidden">
-                          <h3 className="app-ellipsis  app-cursor-pointer">
-                            {e.to}{" "}
-                          </h3>
-                        </div>
-                      </td>
-                      <td className="app-flex app-flex-1-1 app-pd-l-1 app-min-width-0">
-                        <div className="app-flex app-white-space-nowrap app-overflow-hidden app-flex-grow-1">
-                          <h3 className="app-ellipsis  app-cursor-pointer">
-                            {e.subject}
-                          </h3>
-                        </div>
-                        <div className="app-flex-basis-15 app-pd-r-05 app-max-width-15">
-                          <div className=" app-cursor-pointer">
-                            <ClipIcon
-                              style={{ width: "1.3rem", height: "1.3rem" }}
-                            />
-                          </div>
-                        </div>
-                      </td>
-                      <td className="app-flex app-flex-basis-6 app-max-width-6 app-justify-content-start app-pd-r-1">
-                        {" "}
-                        <div>
-                          <h3 className="app-ellipsis  ">{e.date}</h3>
-                        </div>
-                      </td>
-                    </tr>
-                    {/* <div className="app-custom-border-bottom-2"></div> */}
-                  </>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                      {" "}
+                      <div className="app-full-width">
+                        <h3 className="app-font-weight-700 app-font-color">
+                          To
+                        </h3>
+                      </div>
+                    </td>
+                    <td className="app-flex app-flex-1-1 app-pd-l-1 app-min-width-0">
+                      {" "}
+                      <div className="app-full-width">
+                        <h3 className="app-font-weight-700 app-font-color">
+                          Subject
+                        </h3>
+                      </div>
+                    </td>
+                    <td className="app-flex app-flex-basis-6 app-max-width-6 app-justify-content-start app-pd-r-1">
+                      <div className="">
+                        <h3 className="app-font-weight-700 app-font-color">
+                          Date
+                        </h3>
+                      </div>
+                      <div className="app-mg-l-05">
+                        <FaceUpIcon
+                          style={{ width: "0.7rem", height: "0.7rem" }}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                  <EmailData serverData={currentData} />
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
         <div className="app-custom-border-bottom"></div>
+
+        <Pagination
+          dataPerPage={dataPerPage}
+          totalData={serverData.length}
+          paginate={paginate}
+        />
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ const router = express.Router();
 
 const create = () => {};
 
+//To save random data
 const fakerData = () => {
   const from = faker.internet.email();
   const to = faker.internet.email();
@@ -28,22 +29,25 @@ const fakerData = () => {
     .catch((error) => console.log(error));
 };
 router.post("/", (req, res) => {
-  // res.json({
-  //   message: "API - 👋🌎🌍🌏",
-  // });
-  // console.log(new Date().toISOString());
   try {
     // const randomnumber = Math.floor(Math.random() * (100 - 1 + 99)) + 99;
     // let toData = [];
     // for (let i = 0; i < randomnumber; i++) {
     //   fakerData();
     // }
+  } catch (error) {
+    res.status(500);
+    console.log("ERROR=====>", error);
+  }
+});
 
-    console.log(req.body);
+router.get("/email", (req, res) => {
+  try {
+    console.log(req.query);
     Emails.find({
       date: {
-        $gte: req.body.start,
-        $lt: req.body.last,
+        $gte: req.query.start,
+        $lt: req.query.last,
       },
     }).then((ans) => res.json(ans));
   } catch (error) {
@@ -51,7 +55,6 @@ router.post("/", (req, res) => {
     console.log("ERROR=====>", error);
   }
 });
-
 router.use("/emojis", emojis);
 
 module.exports = router;
