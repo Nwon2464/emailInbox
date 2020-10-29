@@ -5,8 +5,6 @@ const Pagination = ({ dataPerPage, totalData, paginate, currentPage }) => {
   for (let i = 1; i <= Math.ceil(totalData / dataPerPage); i++) {
     pageNumbers.push(i);
   }
-  console.log(currentPage);
-  console.log(totalData);
   return (
     <div className="app-full-width">
       <ul className="app-flex app-justify-content-center app-height-5 app-align-center">

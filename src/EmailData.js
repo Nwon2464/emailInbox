@@ -12,7 +12,6 @@ const EmailData = (props) => {
           //only if diff btw last and last before = 1, shows timeline
           const hours = moment(e.date).utc().format("HH:mm");
           const slicedButton = () => {
-            console.log(sliced);
             return <div className="b app-position-absolute">Absolute</div>;
           };
           const delay = moment(e.date)
@@ -35,8 +34,8 @@ const EmailData = (props) => {
           const diffDays = a.diff(b, "days", true); // 1
 
           return (
-            <>
-              <div key={i} className="app-custom-border-bottom"></div>
+            <React.Fragment key={i}>
+              <div className="app-custom-border-bottom"></div>
               <tr
                 style={{
                   paddingTop: "0.3rem",
@@ -136,7 +135,7 @@ const EmailData = (props) => {
                   </div>
                 </td>
               </tr>
-            </>
+            </React.Fragment>
           );
         })}
         <div className="app-custom-border-bottom"></div>

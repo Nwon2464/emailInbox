@@ -7,7 +7,6 @@ import { ReactComponent as FaceUpIcon } from "./Icon/icon_arrow01.svg";
 import { ReactComponent as RightArrow } from "./Icon/icon_arrow02.svg";
 import { ReactComponent as MailIcon } from "./Icon/icon_mail_sp.svg";
 
-import EmailData from "./EmailData";
 const MobileOnly = (props) => {
   return (
     <div id="app-mobile" className="app-relative">
@@ -121,16 +120,16 @@ const MobileOnly = (props) => {
               .split("T")[0]
               .split("-");
             const last = props.lastDay.split("-");
-            const x = moment(props.lastDay);
-            const y = moment(e.date);
-            const diff_s = x.diff(y, "seconds");
+            {/* const x = moment(props.lastDay); */}
+            {/* const y = moment(e.date); */}
+            {/* const diff_s = x.diff(y, "seconds"); */}
             const a = moment([last[0], last[1], last[2]]);
             const b = moment([delay[0], delay[1], delay[2]]);
             const diffDays = a.diff(b, "days", true); // 1
 
             return (
-              <>
-                <div key={i} className="app-custom-border-bottom"></div>
+              <React.Fragment key={i}>
+                <div className="app-custom-border-bottom"></div>
                 <tr
                   style={{
                     paddingTop: "0.7rem",
@@ -244,7 +243,7 @@ const MobileOnly = (props) => {
                     </div>
                   </td>
                 </tr>
-              </>
+              </React.Fragment>
             );
           })}
           <div className="app-custom-border-bottom"></div>
