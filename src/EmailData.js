@@ -6,26 +6,11 @@ const EmailData = (props) => {
     <>
       <tbody>
         {props.serverData.map((e, i) => {
-          {
-            /* console.log(i) */
-          }
           const aSliced = e.to.slice(0, 1);
           const sliced = e.to.slice(1, 4);
           const slicedLength = sliced.length;
           //only if diff btw last and last before = 1, shows timeline
           const hours = moment(e.date).utc().format("HH:mm");
-          {
-            /* console.log(moment(e.date).utc().format("YYYY-MM-DDTHH:mm:ss.SSS")); */
-          }
-
-          {
-            /* console.log(moment(e.date).utc().format("YYYY/MM/DD")); careful "YYYY-MM-DDTHH:mm:ss.SSSZ Z is timezone, so adjusted value will be added" */
-          }
-
-          {
-            /* console.log(moment(e.date).utc().format("HH:mm:ss"));
-          "YYYY-MM-DDTHH:mm:ss" */
-          }
           const slicedButton = () => {
             console.log(sliced);
             return <div className="b app-position-absolute">Absolute</div>;

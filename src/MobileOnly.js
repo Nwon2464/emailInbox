@@ -106,28 +106,12 @@ const MobileOnly = (props) => {
         </thead>
         <tbody>
           {props.currentData.map((e, i) => {
-            {
-              /* console.log(i) */
-            }
             const aSliced = e.to.slice(0, 1);
             const sliced = e.to.slice(1, 4);
             const slicedLength = sliced.length;
             //only if diff btw last and last before = 1, shows timeline
             const hours = moment(e.date).utc().format("HH:mm");
-            {
-              /* console.log(moment(e.date).utc().format("YYYY-MM-DDTHH:mm:ss.SSS")); */
-            }
-
-            {
-              /* console.log(moment(e.date).utc().format("YYYY/MM/DD")); careful "YYYY-MM-DDTHH:mm:ss.SSSZ Z is timezone, so adjusted value will be added" */
-            }
-
-            {
-              /* console.log(moment(e.date).utc().format("HH:mm:ss"));
-          "YYYY-MM-DDTHH:mm:ss" */
-            }
             const slicedButton = () => {
-              console.log(sliced);
               return <div className="b app-position-absolute">Absolute</div>;
             };
             const delay = moment(e.date)
@@ -140,11 +124,6 @@ const MobileOnly = (props) => {
             const x = moment(props.lastDay);
             const y = moment(e.date);
             const diff_s = x.diff(y, "seconds");
-            {
-              /* const diff_sX = moment
-          .utc(moment.duration(diff_s, "seconds").asMilliseconds())
-          .format("HH:mm:ss"); */
-            }
             const a = moment([last[0], last[1], last[2]]);
             const b = moment([delay[0], delay[1], delay[2]]);
             const diffDays = a.diff(b, "days", true); // 1
@@ -202,8 +181,7 @@ const MobileOnly = (props) => {
                               maxWidth: "inherit",
                               marginTop: "0.17rem",
                             }}
-                            className="dropdown app-cursor-pointer
-                    app-align-center app-font-color-white app-flex app-background-message app-width-2 app-justify-content-center app-border-radius-5 app-mg-l-1 app-font-weight-600 app-plus-button app-full-height"
+                            className="dropdown app-cursor-pointer app-align-center app-font-color-white app-flex app-background-message app-width-2 app-justify-content-center app-border-radius-5 app-mg-l-1 app-font-weight-600 app-plus-button app-full-height"
                           >
                             <div className="dropdown-content">
                               <p
@@ -271,12 +249,6 @@ const MobileOnly = (props) => {
           })}
           <div className="app-custom-border-bottom"></div>
         </tbody>
-
-        {/* <EmailData
-          lastDay={props.lastDay}
-          serverData={props.currentData}
-          navIndicatorActive={props.navIndicatorActive}
-        /> */}
       </table>
     </div>
   );

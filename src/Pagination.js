@@ -18,10 +18,11 @@ const Pagination = ({ dataPerPage, totalData, paginate, currentPage }) => {
             </strong>{" "}
           </span>
         </li>
+
         <li
           id="app-button-click2"
           style={{ fontSize: "1.8rem" }}
-          className="app-list-style-none app-mg-lr-05 app-cursor-pointer"
+          className="app-list-style-none app-mg-l-05 app-cursor-pointer"
         >
           <div
             style={{ color: "#888888", padding: "0.5rem" }}
@@ -33,7 +34,7 @@ const Pagination = ({ dataPerPage, totalData, paginate, currentPage }) => {
         <li
           id="app-button-click2"
           style={{ fontSize: "1.8rem" }}
-          className="app-list-style-none app-mg-lr-05 app-cursor-pointer"
+          className="app-list-style-none app-cursor-pointer"
         >
           <div
             style={{ color: "#888888", padding: "0.5rem" }}

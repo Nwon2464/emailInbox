@@ -9,9 +9,9 @@
     ],
     "routes": [{ "src": "/.*", "dest": "src/index.js" }],
     "env": {
-      "NODE_ENV": "production",
+      "NODE_ENV": "deployment",
       "PORT": "5000",
-      "MONGO_URI": "@backend-db"
+      "MONGO_URI": "@backend-db-henne"
        }
   }
   

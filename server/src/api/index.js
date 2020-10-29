@@ -1,11 +1,9 @@
 const express = require("express");
 const faker = require("faker");
-const emojis = require("./emojis");
 const Emails = require("../models/emailSchema");
 
 const router = express.Router();
 
-const create = () => {};
 
 //To save random data
 const fakerData = () => {
@@ -55,6 +53,5 @@ router.get("/email", (req, res) => {
     console.log("ERROR=====>", error);
   }
 });
-router.use("/emojis", emojis);
 
 module.exports = router;

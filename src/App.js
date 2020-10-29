@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 import { ReactComponent as BallIcon } from "./Icon/ball-triangle.svg";
 import { ReactComponent as SearchIcon } from "./Icon/icon_search.svg";
 import { ReactComponent as CalenderIcon } from "./Icon/icon_calender.svg";
-import { ReactComponent as FaceUpIcon } from "./Icon/icon_arrow01.svg";
 import MobileOnly from "./MobileOnly";
 import FullScreenOnly from "./FullScreenOnly";
 
 import Pagination from "./Pagination";
-import EmailData from "./EmailData";
 import DatePickerBack from "./DatePickerBack";
 import DatePickerFront from "./DatePickerFront";
 import logo from "./Icon/logo.png";
 import moment from "moment";
+const BACKEND_URL = "https://henne-for-email-backend.vercel.app";
+// const BACKEND_URL = "http://localhost:5000";
+
 const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage] = useState(50);
@@ -31,8 +32,6 @@ const App = () => {
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(indexOfFirstPost, indexOfLastPost);
   // moment(e.date).format("YYYY-MM-DD")
-
-  const BASE_URL = "http://localhost:5000";
 
   const paginate = (pageNumber) => {
     if (pageNumber === 0) {
@@ -70,7 +69,7 @@ const App = () => {
       setLastDay(answer.last);
       axios
         .get(
-          `${BASE_URL}/api/v1/email?start=${answer.start}&last=${answer.last}`
+          `${BACKEND_URL}/api/v1/email?start=${answer.start}&last=${answer.last}`
         )
         .then((res) => {
           setTimeout(() => {
@@ -179,109 +178,6 @@ const App = () => {
                   navIndicatorActive={navIndicatorActive}
                   toggleMultipleIndicator={toggleMultipleIndicator}
                 />
-                {/* <div className="app-relative">
-                  <table className="app-full-width app-border-spacing-0 app-table-layout-fixed">
-                    <thead>
-                      <tr
-                        style={{
-                          paddingTop: "0.3rem",
-                          paddingBottom: "0.3rem",
-                        }}
-                        className="app-flex app-align-center app-button-background app-height-25"
-                      >
-                        <th className="app-flex app-flex-basis-10 app-max-width-10 app-pd-l-1 app-flex-grow-0 app-min-width-0">
-                          <div className="app-cursor-pointer app-flex app-justify-content-start app-full-width">
-                            <h3
-                              onClick={() => toggleMultipleIndicator("From")}
-                              className={`app-black app-font-weight-700 app-font-color ${
-                                navIndicatorActive !== "From"
-                                  ? ""
-                                  : "app-text-deco-underline app-color-black"
-                              }`}
-                            >
-                              From
-                            </h3>
-                            {navIndicatorActive === "From" && (
-                              <div className="app-mg-l-05">
-                                <FaceUpIcon
-                                  style={{ width: "0.7rem", height: "0.7rem" }}
-                                />
-                              </div>
-                            )}{" "}
-                          </div>
-                        </th>
-                        <th className="app-flex app-flex-basis-20 app-max-width-20 app-pd-l-25 app-flex-grow-0 app-min-width-0">
-                          <div className="app-cursor-pointer app-flex app-justify-content-start app-full-width">
-                            <h3
-                              onClick={() => toggleMultipleIndicator("To")}
-                              className={`app-black app-font-weight-700 app-font-color ${
-                                navIndicatorActive !== "To"
-                                  ? ""
-                                  : "app-text-deco-underline app-color-black"
-                              }`}
-                            >
-                              To
-                            </h3>
-                            {navIndicatorActive === "To" && (
-                              <div className="app-mg-l-05">
-                                <FaceUpIcon
-                                  style={{ width: "0.7rem", height: "0.7rem" }}
-                                />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-                        <th className="app-flex app-flex-1-1 app-pd-l-1 app-min-width-0">
-                          <div className="app-cursor-pointer app-flex app-justify-content-start app-full-width">
-                            <h3
-                              onClick={() => toggleMultipleIndicator("Subject")}
-                              className={`app-black app-font-weight-700 app-font-color ${
-                                navIndicatorActive !== "Subject"
-                                  ? ""
-                                  : "app-text-deco-underline app-color-black"
-                              }`}
-                            >
-                              Subject
-                            </h3>
-                            {navIndicatorActive === "Subject" && (
-                              <div className="app-mg-l-05">
-                                <FaceUpIcon
-                                  style={{ width: "0.7rem", height: "0.7rem" }}
-                                />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-                        <th className="app-flex app-flex-basis-6 app-max-width-6 app-justify-content-start app-pd-r-1">
-                          <div className="app-cursor-pointer app-flex">
-                            <h3
-                              onClick={() => toggleMultipleIndicator("Date")}
-                              className={`app-black app-font-weight-700 ${
-                                navIndicatorActive !== "Date"
-                                  ? "app-font-color"
-                                  : "app-text-deco-underline"
-                              }`}
-                            >
-                              Date
-                            </h3>
-                            {navIndicatorActive === "Date" && (
-                              <div className="app-mg-l-05">
-                                <FaceUpIcon
-                                  style={{ width: "0.7rem", height: "0.7rem" }}
-                                />
-                              </div>
-                            )}
-                          </div>
-                        </th>
-                      </tr>
-                    </thead>
-                    <EmailData
-                      lastDay={lastDay}
-                      serverData={currentData}
-                      navIndicatorActive={navIndicatorActive}
-                    />
-                  </table>
-                </div> */}
                 <Pagination
                   currentPage={currentPage}
                   dataPerPage={dataPerPage}
