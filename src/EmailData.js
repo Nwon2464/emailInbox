@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import { ReactComponent as ClipIcon } from "./Icon/icon_clip.svg";
 import moment from "moment";
 const EmailData = (props) => {

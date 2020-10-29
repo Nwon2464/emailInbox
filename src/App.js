@@ -5,6 +5,8 @@ import { ReactComponent as BallIcon } from "./Icon/ball-triangle.svg";
 import { ReactComponent as SearchIcon } from "./Icon/icon_search.svg";
 import { ReactComponent as CalenderIcon } from "./Icon/icon_calender.svg";
 import { ReactComponent as FaceUpIcon } from "./Icon/icon_arrow01.svg";
+import MobileOnly from "./MobileOnly";
+import FullScreenOnly from "./FullScreenOnly";
 
 import Pagination from "./Pagination";
 import EmailData from "./EmailData";
@@ -14,7 +16,7 @@ import logo from "./Icon/logo.png";
 import moment from "moment";
 const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [dataPerPage] = useState(25);
+  const [dataPerPage] = useState(50);
   const [loading, setLoading] = useState(false);
   const [serverData, setServerData] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
@@ -32,7 +34,15 @@ const App = () => {
 
   const BASE_URL = "http://localhost:5000";
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => {
+    if (pageNumber === 0) {
+      return;
+    }
+    if (pageNumber === Math.ceil(serverData.length / dataPerPage) + 1) {
+      return;
+    }
+    setCurrentPage(pageNumber);
+  };
   const handleDateSelect = (a) => {
     setStartDateState(a);
   };
@@ -78,17 +88,23 @@ const App = () => {
   return (
     <div className="app-flex app-flex-column app-flex-nowrap app-bottom-0 app-left-0 app-right-0 app-top-0 app-absolute">
       <div className="media-query-mg app-flex app-full-height app-flex-column app-align-start app-mg-l-45 app-mg-r-45 ">
-        <div className="mapp-mg-l-1 app-flex app-full-width app-justify-content-start app-mg-t-2">
+        <div
+          id="app-mobile-auto-width"
+          className="mapp-mg-l-1 app-flex app-full-width app-justify-content-start app-mg-t-2"
+        >
           <div className="app-flex app-width-30 app-height-4 app-align-center">
             <div className="app-box-shadow-inset-2 app-border-top app-border-bottom app-border-left app-flex app-full-height app-full-width app-flex-grow-1 app-border-bottom-left-radius-10 app-border-top-left-radius-10">
               <div className="app-flex app-align-center ">
                 <div className="app-mg-l-15">
-                  <CalenderIcon style={{ width: "2.3rem", height: "2.3rem" }} />
+                  <CalenderIcon
+                    className="mapp-width-15 mapp-height-15"
+                    style={{ width: "2.3rem", height: "2.3rem" }}
+                  />
                 </div>
               </div>
               <div
                 style={{ fontSize: "1.5rem", width: "20rem" }}
-                className="app-flex app-align-center app-mg-l-1"
+                className="mapp-width-13 mapp-mg-l-05 app-flex app-align-center app-mg-l-1"
               >
                 {" "}
                 <DatePickerFront
@@ -112,16 +128,19 @@ const App = () => {
             <button
               onClick={dateStateOnClick}
               id="app-button-click"
-              className="app-cursor-pointer app-button-background app-full-height app-button-y app-justify-content-center app-flex app-align-center app-width-4 app-border-left-button app-border-top-button app-border-bottom-button app-border-right-button app-border-bottom-right-radius-10 app-border-top-right-radius-10"
+              className="mapp-width-3 app-cursor-pointer app-button-background app-full-height app-button-y app-justify-content-center app-flex app-align-center app-width-4 app-border-left-button app-border-top-button app-border-bottom-button app-border-right-button app-border-bottom-right-radius-10 app-border-top-right-radius-10"
             >
               <div className="app-flex app-justify-content-center app-align-center">
-                <SearchIcon style={{ width: "2rem", height: "2rem" }} />
+                <SearchIcon
+                  className="mapp-width-height-15"
+                  style={{ width: "2rem", height: "2rem" }}
+                />
               </div>
             </button>
           </div>
         </div>
 
-        <div className="mapp-mg-l-1 app-full-width">
+        <div id="app-mobile-auto-width" className="mapp-mg-l-1 app-full-width">
           <div className="app-mg-t-15 app-flex app-justify-content-start">
             <h3 className="app-font-weight-700 app-font-15 app-font-color">
               Results: {serverData.length || 0} mail(s)
@@ -148,7 +167,19 @@ const App = () => {
               </>
             ) : (
               <>
-                <div className="app-relative">
+                <FullScreenOnly
+                  lastDay={lastDay}
+                  currentData={currentData}
+                  navIndicatorActive={navIndicatorActive}
+                  toggleMultipleIndicator={toggleMultipleIndicator}
+                />
+                <MobileOnly
+                  lastDay={lastDay}
+                  currentData={currentData}
+                  navIndicatorActive={navIndicatorActive}
+                  toggleMultipleIndicator={toggleMultipleIndicator}
+                />
+                {/* <div className="app-relative">
                   <table className="app-full-width app-border-spacing-0 app-table-layout-fixed">
                     <thead>
                       <tr
@@ -250,7 +281,7 @@ const App = () => {
                       navIndicatorActive={navIndicatorActive}
                     />
                   </table>
-                </div>
+                </div> */}
                 <Pagination
                   currentPage={currentPage}
                   dataPerPage={dataPerPage}

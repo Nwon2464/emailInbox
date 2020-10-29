@@ -1,0 +1,17 @@
+{
+    "name": "HENNE-For-Email-Backend",
+    "version": 2,
+    "builds": [
+      {
+        "src": "src/index.js",
+        "use": "@now/node-server"
+      }
+    ],
+    "routes": [{ "src": "/.*", "dest": "src/index.js" }],
+    "env": {
+      "NODE_ENV": "production",
+      "PORT": "5000",
+      "MONGO_URI": "@backend-db"
+       }
+  }
+  
