@@ -11,9 +11,6 @@ const EmailData = (props) => {
           const slicedLength = sliced.length;
           //only if diff btw last and last before = 1, shows timeline
           const hours = moment(e.date).utc().format("HH:mm");
-          const slicedButton = () => {
-            return <div className="b app-position-absolute">Absolute</div>;
-          };
           const delay = moment(e.date)
             .subtract(2, "days")
             .add(15, "hours")
@@ -21,14 +18,6 @@ const EmailData = (props) => {
             .split("T")[0]
             .split("-");
           const last = props.lastDay.split("-");
-          {/* const x = moment(props.lastDay); */}
-          {/* const y = moment(e.date); */}
-          {/* const diff_s = x.diff(y, "seconds"); */}
-          {
-            /* const diff_sX = moment
-          .utc(moment.duration(diff_s, "seconds").asMilliseconds())
-          .format("HH:mm:ss"); */
-          }
           const a = moment([last[0], last[1], last[2]]);
           const b = moment([delay[0], delay[1], delay[2]]);
           const diffDays = a.diff(b, "days", true); // 1
@@ -74,7 +63,6 @@ const EmailData = (props) => {
                   </div>
                   {e.to.length !== 1 && (
                     <button
-                      onClick={slicedButton}
                       style={{ maxWidth: "inherit" }}
                       className="dropdown app-cursor-pointer
                     app-align-center app-font-color-white app-flex app-background-message app-width-2 app-justify-content-center app-border-radius-5 app-mg-l-1 app-font-weight-600 app-plus-button app-full-height"
