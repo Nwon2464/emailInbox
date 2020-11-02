@@ -20,7 +20,7 @@ const MobileOnly = (props) => {
             className="app-flex app-align-center app-button-background app-height-25"
           >
             <th className="mapp-mg-l-1">
-              <div className="app-cursor-pointer app-flex app-justify-content-start app-full-width">
+              <div className="app-cursor-pointer3 app-flex app-justify-content-start app-full-width">
                 <h3
                   onClick={() => props.toggleMultipleIndicator("From")}
                   className={`app-black app-font-weight-700 app-font-color ${
@@ -38,10 +38,10 @@ const MobileOnly = (props) => {
                 )}{" "}
               </div>
             </th>
-            <div className="mapp-mg-l-05 mapp-navigation-link-left-border mapp-mg-t-02"></div>
+            <th className="mapp-mg-l-05 mapp-navigation-link-left-border mapp-mg-t-02"></th>
 
             <th className="mapp-mg-l-05">
-              <div className="app-cursor-pointer app-flex app-justify-content-start app-full-width">
+              <div className="app-cursor-pointer3 app-flex app-justify-content-start app-full-width">
                 <h3
                   onClick={() => props.toggleMultipleIndicator("To")}
                   className={`app-black app-font-weight-700 app-font-color ${
@@ -59,10 +59,10 @@ const MobileOnly = (props) => {
                 )}
               </div>
             </th>
-            <div className="mapp-mg-l-05 mapp-navigation-link-left-border mapp-mg-t-02"></div>
+            <th className="mapp-mg-l-05 mapp-navigation-link-left-border mapp-mg-t-02"></th>
 
             <th className="mapp-mg-l-05">
-              <div className="app-cursor-pointer app-flex app-justify-content-start app-full-width">
+              <div className="app-cursor-pointer3 app-flex app-justify-content-start app-full-width">
                 <h3
                   onClick={() => props.toggleMultipleIndicator("Subject")}
                   className={`app-black app-font-weight-700 app-font-color ${
@@ -80,10 +80,10 @@ const MobileOnly = (props) => {
                 )}
               </div>
             </th>
-            <div className="mapp-mg-l-05 mapp-navigation-link-left-border mapp-mg-t-02"></div>
+            <th className="mapp-mg-l-05 mapp-navigation-link-left-border mapp-mg-t-02"></th>
 
             <th className="mapp-mg-l-05">
-              <div className="app-cursor-pointer app-flex">
+              <div className="app-cursor-pointer3 app-flex">
                 <h3
                   onClick={() => props.toggleMultipleIndicator("Date")}
                   className={`app-black app-font-weight-700 ${
@@ -120,16 +120,16 @@ const MobileOnly = (props) => {
               .split("T")[0]
               .split("-");
             const last = props.lastDay.split("-");
-            {/* const x = moment(props.lastDay); */}
-            {/* const y = moment(e.date); */}
-            {/* const diff_s = x.diff(y, "seconds"); */}
+
             const a = moment([last[0], last[1], last[2]]);
             const b = moment([delay[0], delay[1], delay[2]]);
             const diffDays = a.diff(b, "days", true); // 1
 
             return (
               <React.Fragment key={i}>
-                <div className="app-custom-border-bottom"></div>
+                <tr>
+                  <td className="app-custom-border-bottom"></td>
+                </tr>
                 <tr
                   style={{
                     paddingTop: "0.7rem",
@@ -137,11 +137,11 @@ const MobileOnly = (props) => {
                   }}
                   className="app-flex-nowrap media-height-55 app-flex app-height-25 app-align-center mapp-cursor-pointer1"
                 >
-                  <div className="app-flex app-full-width">
-                    <td className="app-flex-order-1 app-flex app-align-center app-mg-l-05">
+                  <td className="app-flex app-full-width">
+                    <div className="app-flex-order-1 app-flex app-align-center app-mg-l-05">
                       <MailIcon style={{ width: "2rem", height: "2.5rem" }} />
-                    </td>
-                    <td className="app-flex-shrink-1 app-flex-grow-1 app-flex-order-2 app-min-width-0 mapp-mg-l-05 ">
+                    </div>
+                    <div className="app-flex-shrink-1 app-flex-grow-1 app-flex-order-2 app-min-width-0 mapp-mg-l-05 ">
                       <div className="app-justify-content-start app-flex app-white-space-nowrap app-overflow-hidden app-mg-b-03">
                         <h3
                           className={`app-flex-grow-1 app-flex-shrink-1 app-ellipsis  app-cursor-pointer ${
@@ -201,9 +201,9 @@ const MobileOnly = (props) => {
                           </button>
                         )}
                       </div>
-                    </td>
+                    </div>
 
-                    <td className="app-flex app-flex-order-3 app-mg-r-13 app-height-15">
+                    <div className="app-flex app-flex-order-3 app-mg-r-13 app-height-15">
                       {" "}
                       <div>
                         <h3
@@ -225,8 +225,8 @@ const MobileOnly = (props) => {
                           style={{ width: "0.5rem", height: "0.5rem" }}
                         />
                       </div>
-                    </td>
-                  </div>
+                    </div>
+                  </td>
 
                   <td className="app-full-width">
                     <div className="app-mg-t-03 app-mg-l-1 app-flex app-white-space-nowrap app-overflow-hidden app-flex-grow-1">
@@ -246,7 +246,9 @@ const MobileOnly = (props) => {
               </React.Fragment>
             );
           })}
-          <div className="app-custom-border-bottom"></div>
+          <tr>
+            <td className="app-custom-border-bottom"></td>
+          </tr>
         </tbody>
       </table>
     </div>

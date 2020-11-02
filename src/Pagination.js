@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Pagination = ({ dataPerPage, totalData, paginate, currentPage }) => {
   const pageNumbers = [];

@@ -21,9 +21,9 @@ const EmailData = (props) => {
             .split("T")[0]
             .split("-");
           const last = props.lastDay.split("-");
-          const x = moment(props.lastDay);
-          const y = moment(e.date);
-          const diff_s = x.diff(y, "seconds");
+          {/* const x = moment(props.lastDay); */}
+          {/* const y = moment(e.date); */}
+          {/* const diff_s = x.diff(y, "seconds"); */}
           {
             /* const diff_sX = moment
           .utc(moment.duration(diff_s, "seconds").asMilliseconds())
@@ -35,7 +35,11 @@ const EmailData = (props) => {
 
           return (
             <React.Fragment key={i}>
-              <div className="app-custom-border-bottom"></div>
+              <tr>
+                <td>
+                  <div className="app-custom-border-bottom"></div>
+                </td>
+              </tr>
               <tr
                 style={{
                   paddingTop: "0.3rem",
@@ -138,7 +142,9 @@ const EmailData = (props) => {
             </React.Fragment>
           );
         })}
-        <div className="app-custom-border-bottom"></div>
+        <tr>
+          <td className="app-custom-border-bottom"></td>
+        </tr>
       </tbody>
     </>
   );

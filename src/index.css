@@ -48,7 +48,7 @@ input {
   cursor: pointer !important;
 }
 .react-datepicker-wrapper {
-  width: 7.5rem !important;
+  width: 7.7rem !important;
   height: 100% !important;
   display: flex !important;
   align-items: center !important;
@@ -159,7 +159,6 @@ button {
   margin-left: 0.5rem !important;
   margin-right: 0.5rem !important;
 }
-
 
 #app-first-list {
   text-decoration: underline !important;
@@ -621,6 +620,9 @@ h3 {
   #app-mobile-auto-width {
     width: auto !important;
   }
+  .app-cursor-pointer3 {
+    cursor: pointer;
+  }
   .mapp-width-height-15 {
     width: 1.5rem !important;
     height: 1.5rem !important;
@@ -680,5 +682,4 @@ h3 {
   li {
     font-size: 1.4rem !important;
   }
-  
 }
