@@ -28,11 +28,11 @@ const fakerData = () => {
 };
 router.post("/", (req, res) => {
   try {
-    // const randomnumber = Math.floor(Math.random() * (100 - 1 + 99)) + 99;
-    // let toData = [];
-    // for (let i = 0; i < randomnumber; i++) {
-    //   fakerData();
-    // }
+    const randomnumber = Math.floor(Math.random() * (100 - 1 + 99)) + 99;
+    let toData = [];
+    for (let i = 0; i < randomnumber; i++) {
+      fakerData();
+    }
   } catch (error) {
     res.status(500);
     console.log("ERROR=====>", error);
