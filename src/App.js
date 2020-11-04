@@ -55,6 +55,8 @@ const App = () => {
     // const last = b;
     return { start, last };
   };
+
+  //Picked Date from Date Picker and Fetch Data from server
   const dateStateOnClick = () => {
     if (startDateState && endDateState !== null) {
       setLoading(true);
@@ -79,6 +81,7 @@ const App = () => {
   const toggleMultipleIndicator = (value) => {
     setNavIndicatorActive(value);
   };
+
   return (
     <div className="app-flex app-flex-column app-flex-nowrap app-bottom-0 app-left-0 app-right-0 app-top-0 app-absolute">
       <div className="media-query-mg app-flex app-full-height app-flex-column app-align-start app-mg-l-45 app-mg-r-45 ">
