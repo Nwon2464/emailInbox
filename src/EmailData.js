@@ -36,7 +36,7 @@ const EmailData = (props) => {
                 }}
                 className="media-fdirection-column app-flex app-height-25 app-align-center app-cursor-pointer1"
               >
-                <td className="app-flex app-flex-basis-10 app-max-width-10 app-pd-l-1 app-flex-grow-0 app-min-width-0">
+                <td className="dropdown app-flex app-flex-basis-10 app-max-width-10 app-pd-l-1 app-flex-grow-0 app-min-width-0">
                   <div className="app-flex app-white-space-nowrap app-overflow-hidden">
                     <h3
                       className={`app-ellipsis  app-cursor-pointer ${
@@ -47,6 +47,14 @@ const EmailData = (props) => {
                     >
                       {e.from}{" "}
                     </h3>
+                  </div>
+                  <div className="dropdown-content-2">
+                    <p
+                      className="app-text-deco-under app-font-weight-600 app-cursor-pointer"
+                      style={{ color: "#666666" }}
+                    >
+                      {e.from}
+                    </p>
                   </div>
                 </td>
                 <td className="app-flex app-flex-basis-20 app-max-width-20 app-pd-l-25 app-flex-grow-0 app-min-width-0">
@@ -82,7 +90,12 @@ const EmailData = (props) => {
                           {sliced[1]}
                         </p>
                       </div>
-                      <h3 className="app-flex">+{slicedLength}</h3>
+                      <h3
+                        style={{ width: "3rem" }}
+                        className="app-flex app-justify-content-center"
+                      >
+                        +{slicedLength}
+                      </h3>
                     </button>
                   )}
                 </td>
