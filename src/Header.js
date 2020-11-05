@@ -25,6 +25,7 @@ const Header = (props) => {
               style={{ fontSize: "1.5rem", width: "20rem" }}
               className="mapp-width-13 mapp-mg-l-05 app-flex app-align-center app-mg-l-1"
             >
+              {" "}
               <DatePickerFront
                 handleDateSelect={props.handleDateSelect}
                 startDate={props.startDate}

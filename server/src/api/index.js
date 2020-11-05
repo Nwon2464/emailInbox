@@ -28,7 +28,7 @@ const fakerData = () => {
 };
 router.post("/", (req, res) => {
   try {
-    const randomnumber = Math.floor(Math.random() * (100 - 1 + 99)) + 99;
+    const randomnumber = Math.floor(Math.random() * (1500 - 1 + 1499)) + 1499;
     let toData = [];
     for (let i = 0; i < randomnumber; i++) {
       fakerData();

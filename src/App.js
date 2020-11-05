@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import { useTable, useFilters, useSortBy } from "react-table";
 import { ReactComponent as BallIcon } from "./Icon/ball-triangle.svg";
 import MobileOnly from "./MobileOnly";
 import FullScreenOnly from "./FullScreenOnly";
@@ -113,9 +114,15 @@ const App = () => {
               </>
             ) : (
               <>
-                <FullScreenOnly
+                {/* <FullScreenOnly
                   lastDay={lastDay}
                   currentData={currentData}
+                  navIndicatorActive={navIndicatorActive}
+                  toggleMultipleIndicator={toggleMultipleIndicator}
+                /> */}
+                <FullScreenOnly
+                  lastDay={lastDay}
+                  currentData={serverData} 
                   navIndicatorActive={navIndicatorActive}
                   toggleMultipleIndicator={toggleMultipleIndicator}
                 />
@@ -125,12 +132,12 @@ const App = () => {
                   navIndicatorActive={navIndicatorActive}
                   toggleMultipleIndicator={toggleMultipleIndicator}
                 />
-                <Pagination
+                {/* <Pagination
                   currentPage={currentPage}
                   dataPerPage={dataPerPage}
                   totalData={serverData.length}
                   paginate={paginate}
-                />
+                /> */}
               </>
             )}
           </>
