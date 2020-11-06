@@ -1,6 +1,5 @@
-import React, { useMemo, useRef, useEffect, useState } from "react";
-import { ReactComponent as FaceUpIcon } from "./Icon/icon_arrow01.svg";
-import { columnData, generateSorting } from "./Table/Column";
+import React, { useMemo } from "react";
+import { columnData, generateSorting, widthClasses } from "./Table/Column";
 
 import { GlobalFilter } from "./Table/filters";
 import {
@@ -10,40 +9,14 @@ import {
   useSortBy,
   usePagination,
 } from "react-table";
-import EmailData from "./EmailData";
-
 const FullScreenOnly = (props) => {
   const data = useMemo(() => props.currentData, [props.currentData]);
   const columns = useMemo(() => columnData, []);
-
-  const flexClasses = (column) => {
-    if (column.id === "from") {
-      console.log("E");
-      return "app-flex app-flex-basis-10 app-max-width-10 app-pd-l-1 app-flex-grow-0 app-min-width-0";
-    } else if (column.id === "to") {
-      return "app-flex app-flex-basis-20 app-max-width-20 app-pd-l-25 app-flex-grow-0 app-min-width-0";
-    } else if (column.id === "subject") {
-      return "app-flex app-flex-1-1 app-pd-l-1 app-min-width-0";
-    } else if (column.id === "date") {
-      return "app-flex app-flex-basis-6 app-max-width-6 app-justify-content-start app-pd-r-1";
-    }
-  };
-  const widthClasses = (e) => {
-    if (e.id === "from") {
-      return "app-flex app-flex-basis-10 app-max-width-10 app-mg-l-1 app-flex-grow-0 app-min-width-0";
-    } else if (e.id === "to") {
-      return "app-flex app-flex-basis-20 app-max-width-20 app-mg-l-25 app-flex-grow-0 app-min-width-0";
-    } else if (e.id === "subject") {
-      return "app-flex app-flex-1-1 app-mg-l-1 app-min-width-0";
-    } else if (e.id === "date") {
-      return "app-flex app-flex-basis-6 app-max-width-6 app-justify-content-start app-mg-l-1 app-mg-r-05";
-    }
-  };
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+
     page,
     nextPage,
     previousPage,
@@ -119,10 +92,11 @@ const FullScreenOnly = (props) => {
               ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-              {page.map((row) => {
+              {page.map((row, i) => {
                 prepareRow(row);
                 return (
                   <tr
+                    key={i}
                     className="app-custom-border-bottom-2 app-height-25 app-flex app-align-center"
                     style={{
                       paddingTop: "0.3rem",
@@ -130,11 +104,11 @@ const FullScreenOnly = (props) => {
                     }}
                     {...row.getRowProps()}
                   >
-                    {row.cells.map((cell) => {
+                    {row.cells.map((cell, i) => {
                       return (
                         <td
+                          key={i}
                           className={`${widthClasses(cell.column)} dropdown-2 `}
-                          style={{}}
                         >
                           <div className="app-flex app-white-space-nowrap app-overflow-hidden">
                             <h3

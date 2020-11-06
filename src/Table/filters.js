@@ -60,7 +60,7 @@ export const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
     if (ref.current) {
       setRefWidth(ref.current.parentElement.clientWidth);
     }
-  });
+  }, []);
 
   //debounce filter state
   const [value, setValue] = useState(globalFilter);

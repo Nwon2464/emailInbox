@@ -6,8 +6,8 @@ const Pagination = ({ dataPerPage, totalData, paginate, currentPage }) => {
     pageNumbers.push(i);
   }
   return (
-    <div className="app-full-width">
-      <ul className="app-flex app-justify-content-center app-height-5 app-align-center">
+    <div id="app-mobile" className="app-full-width">
+      <ul className="app-flex app-full-width app-justify-content-center app-height-5 app-align-center">
         <li style={{ fontSize: "1.5rem", listStyle: "none" }}>
           <span style={{ color: "#888888" }}>
             Page{" "}

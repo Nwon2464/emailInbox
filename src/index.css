@@ -168,8 +168,8 @@ button {
 .app-pd-r-1 {
   padding-right: 1rem !important;
 }
-.app-mg-r-1{
-  margin-right:1rem !important;
+.app-mg-r-1 {
+  margin-right: 1rem !important;
 }
 .app-mg-lr-05 {
   margin-left: 0.5rem !important;
@@ -205,6 +205,9 @@ button {
 }
 .app-full-width {
   width: 100% !important;
+}
+.app-width-25 {
+  width: 2.5rem !important;
 }
 .app-full-height {
   height: 100% !important;
@@ -731,10 +734,11 @@ h3 {
     margin-left: 1.5rem !important;
   }
   .mapp-navigation-link-left-border {
-    background-color: #666666;
-    height: 60%;
-    width: 1px;
+    background-color: #dfdfdf;
+    height: 45%;
+    width: 2px;
   }
+
   .mapp-mg-t-02 {
     margin-top: 0.2rem !important;
   }
