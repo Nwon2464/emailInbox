@@ -3,9 +3,9 @@ import axios from "axios";
 
 import { ReactComponent as BallIcon } from "./Icon/ball-triangle.svg";
 import MobileOnly from "./MobileOnly";
+
 import FullScreenOnly from "./FullScreenOnly";
 import Header from "./Header";
-import Pagination from "./Pagination";
 import logo from "./Icon/logo.png";
 import moment from "moment";
 const BACKEND_URL = "https://henne-for-email-backend.vercel.app";
@@ -55,6 +55,8 @@ const App = () => {
     // const last = b;
     return { start, last };
   };
+
+  //Picked Date from Date Picker and Fetch Data from server
   const dateStateOnClick = () => {
     if (startDateState && endDateState !== null) {
       setLoading(true);
@@ -79,6 +81,7 @@ const App = () => {
   const toggleMultipleIndicator = (value) => {
     setNavIndicatorActive(value);
   };
+
   return (
     <div className="app-flex app-flex-column app-flex-nowrap app-bottom-0 app-left-0 app-right-0 app-top-0 app-absolute">
       <div className="media-query-mg app-flex app-full-height app-flex-column app-align-start app-mg-l-45 app-mg-r-45 ">
@@ -112,7 +115,7 @@ const App = () => {
               <>
                 <FullScreenOnly
                   lastDay={lastDay}
-                  currentData={currentData}
+                  currentData={serverData}
                   navIndicatorActive={navIndicatorActive}
                   toggleMultipleIndicator={toggleMultipleIndicator}
                 />
@@ -121,8 +124,6 @@ const App = () => {
                   currentData={currentData}
                   navIndicatorActive={navIndicatorActive}
                   toggleMultipleIndicator={toggleMultipleIndicator}
-                />
-                <Pagination
                   currentPage={currentPage}
                   dataPerPage={dataPerPage}
                   totalData={serverData.length}
